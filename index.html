@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Quran Cahaya iman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #0a0e17;
+            color: #e0e0e0;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Background stars effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 1px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 2px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: rgba(18, 22, 33, 0.95);
+            min-height: 100vh;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow-x: hidden;
+        }
+        .credit-banner {
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-size: 12px;
+        }
+        header {
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .location {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .location span {
+            margin-left: 5px;
+        }
+        .prayer-time {
+            margin: 15px 0;
+        }
+        .prayer-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        .date {
+            font-size: 14px;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+            border-bottom: 1px solid #2a3041;
+            background: rgba(22, 26, 38, 0.8);
+        }
+        .nav-item {
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgba(40, 46, 63, 0.7);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.7) 0%, rgba(37, 117, 252, 0.7) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(106, 17, 203, 0.3);
+        }
+        .nav-item i {
+            font-size: 20px;
+            color: #10B981;
+            margin-bottom: 5px;
+        }
+        .nav-item:hover i, .nav-item.active i {
+            color: white;
+        }
+        .nav-item span {
+            font-size: 12px;
+            display: block;
+            color: #e0e0e0;
+        }
+        .search-container {
+            padding: 20px;
+            background: rgba(22, 26, 38, 0.5);
+        }
+        .search-box {
+            display: flex;
+            background: rgba(40, 46, 63, 0.7);
+            border-radius: 30px;
+            padding: 10px 15px;
+            align-items: center;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 5px;
+            outline: none;
+            color: #e0e0e0;
+        }
+        .search-box input::placeholder {
+            color: rgba(224, 224, 224, 0.6);
+        }
+        .content-area {
+            padding: 0 20px 20px;
+            min-height: 300px;
+            background: rgba(18, 22, 33, 0.8);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .surah-list, .doa-list, .mahfudzot-list {
+            margin-top: 15px;
+        }
+        .surah-item, .doa-item, .mahfudzot-item {
+            padding: 12px;
+            border-bottom: 1px solid #2a3041;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(40, 46, 63, 0.5);
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+        .surah-item:hover, .doa-item:hover, .mahfudzot-item:hover {
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.3) 0%, rgba(37, 117, 252, 0.3) 100%);
+            transform: translateX(5px);
+        }
+        .surah-name {
+            font-weight: 500;
+        }
+        .surah-name-arab {
+            font-size: 18px;
+            font-family: 'Traditional Arabic', serif;
+        }
+        .surah-meaning {
+            font-size: 12px;
+            color: rgba(224, 224, 224, 0.7);
+            margin-top: 3px;
+        }
+        .donation-section {
+            background: linear-gradient(135deg, rgba(40, 46, 63, 0.7) 0%, rgba(106, 17, 203, 0.2) 100%);
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        .donation-section h3 {
+            color: #10B981;
+            margin-bottom: 10px;
+        }
+        .donation-section p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: rgba(224, 224, 224, 0.8);
+        }
+        .madrasah-photo {
+            width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        .donate-btn {
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .donate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: rgba(224, 224, 224, 0.6);
+            border-top: 1px solid #2a3041;
+            background: rgba(22, 26, 38, 0.8);
+        }
+        .back-btn {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 15px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #10B981;
+        }
+        .error-message {
+            text-align: center;
+            padding: 20px;
+            color: #f44336;
+            background-color: rgba(244, 67, 54, 0.1);
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+        .ayat-container {
+            margin-top: 15px;
+        }
+        .ayat-item {
+            padding: 15px;
+            border-bottom: 1px solid #2a3041;
+            background-color: rgba(40, 46, 63, 0.5);
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .ayat-arab {
+            font-size: 20px;
+            font-family: 'Traditional Arabic', serif;
+            text-align: right;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+        .ayat-latin {
+            font-style: italic;
+            color: rgba(224, 224, 224, 0.8);
+            margin-bottom: 8px;
+        }
+        .ayat-terjemahan {
+            color: rgba(224, 224, 224, 0.9);
+            border-top: 1px dashed #2a3041;
+            padding-top: 8px;
+        }
+        .surah-header {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2) 0%, rgba(37, 117, 252, 0.2) 100%);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        .surah-title-arab {
+            font-size: 28px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 5px;
+            color: #e0e0e0;
+        }
+        .surah-title-latin {
+            font-size: 18px;
+            font-weight: bold;
+            color: #10B981;
+            margin-bottom: 5px;
+        }
+        .surah-meta {
+            font-size: 14px;
+            color: rgba(224, 224, 224, 0.7);
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-button {
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        .nav-button:hover {
+            background: linear-gradient(135deg, #5809b0 0%, #1a63d4 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(106, 17, 203, 0.3);
+        }
+        .view-options {
+            display: flex;
+            margin: 10px 0;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #10B981;
+        }
+        .view-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background: rgba(40, 46, 63, 0.7);
+            cursor: pointer;
+            transition: all 0.3s;
+            color: rgba(224, 224, 224, 0.8);
+        }
+        .view-option.active {
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+        }
+        .doa-detail, .mahfudzot-detail {
+            margin-top: 15px;
+        }
+        .doa-arab, .mahfudzot-arab {
+            font-size: 20px;
+            font-family: 'Traditional Arabic', serif;
+            text-align: right;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        .doa-latin, .mahfudzot-latin {
+            font-style: italic;
+            color: rgba(224, 224, 224, 0.8);
+            margin-bottom: 10px;
+        }
+        .doa-terjemahan, .mahfudzot-meaning {
+            color: rgba(224, 224, 224, 0.9);
+            margin-bottom: 15px;
+        }
+        .page-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .page-controls {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .page-btn {
+            padding: 8px 15px;
+            margin: 0 5px;
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .page-info {
+            margin: 10px 0;
+            font-weight: bold;
+            color: #10B981;
+        }
+        .kitab-list {
+            margin-top: 15px;
+        }
+        .kitab-item {
+            padding: 12px;
+            border-bottom: 1px solid #2a3041;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(40, 46, 63, 0.5);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .kitab-item:hover {
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.3) 0%, rgba(37, 117, 252, 0.3) 100%);
+        }
+        .kitab-content {
+            margin-top: 15px;
+            line-height: 1.8;
+            color: rgba(224, 224, 224, 0.9);
+        }
+        .arab-text {
+            font-family: 'Traditional Arabic', serif;
+            font-size: 18px;
+            text-align: right;
+            line-height: 2;
+            margin: 10px 0;
+            color: #e0e0e0;
+        }
+        .tajweed-rule {
+            background-color: rgba(255, 249, 196, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid rgba(255, 235, 59, 0.3);
+            color: rgba(224, 224, 224, 0.9);
+        }
+        .tajweed-title {
+            font-weight: bold;
+            color: #10B981;
+            margin-bottom: 5px;
+        }
+        .highlight {
+            background-color: rgba(255, 249, 196, 0.2);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        /* Kiblat Styles */
+        .compass-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .compass {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(40, 46, 63, 0.7);
+            border: 2px solid #10B981;
+            position: relative;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .compass-direction {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #10B981;
+        }
+        .direction-n { top: 5px; }
+        .direction-e { top: 50%; right: 5px; transform: translateY(-50%); }
+        .direction-s { bottom: 5px; }
+        .direction-w { top: 50%; left: 5px; transform: translateY(-50%); }
+        .compass-arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 85px;
+            background-color: #f44336;
+            transform-origin: bottom center;
+            transform: translateX(-50%) translateY(-100%);
+            z-index: 10;
+        }
+        .compass-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background-color: #f44336;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 11;
+        }
+        .kiblat-info {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(106, 17, 203, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        .kiblat-action-btn {
+            background: linear-gradient(135deg, #10B981 0%, #2575FC 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        .kiblat-action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+        }
+        /* Jadwal Shalat Styles */
+        #shalat-content > div > div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #2a3041;
+            background: rgba(40, 46, 63, 0.5);
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        @media (max-width: 480px) {
+            .nav-item {
+                padding: 8px 5px;
+            }
+            .nav-item span {
+                font-size: 11px;
+            }
+            .navigation-buttons {
+                flex-direction: column;
+            }
+            .nav-button {
+                width: 100%;
+                margin: 5px 0;
+            }
+            .compass {
+                width: 150px;
+                height: 150px;
+            }
+            .compass-arrow {
+                height: 65px;
+            }
+        }
+
+        /* === STYLE BARU UNTUK FITUR DAFTAR SURAT === */
+        #daftar-surat-content .surah-item {
+            cursor: default; /* Hilangkan pointer karena tidak ada aksi klik */
+        }
+        #daftar-surat-content .surah-item:hover {
+            transform: none;
+            background: rgba(40, 46, 63, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="credit-banner">
+            Coding by Rohimat
+        </div>
+        <div class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <header>
+            <div class="logo-container">
+                <img src="1002764461[1].png" alt="Logo Madrasah" class="logo">
+            </div>
+            <div class="location">
+                <span class="icon">📍</span>
+                <span>Kota Jakarta Pusat, DKI Jakarta</span>
+            </div>
+            <div class="prayer-time">
+                <div class="prayer-name">Isya' 18:59 WIB</div>
+                <div class="countdown" id="countdown">00 : 12 : 15</div>
+            </div>
+            <div class="date">14 September 2025 / 21 Rabiul Awal 1447</div>
+        </header>
+        <nav>
+            <div class="nav-item active" data-target="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" data-target="quran">
+                <i class="fas fa-book-quran"></i>
+                <span>Al-Quran</span>
+            </div>
+            <div class="nav-item" data-target="doa-harian">
+                <i class="fas fa-pray"></i>
+                <span>Doa Sehari-hari</span>
+            </div>
+            <div class="nav-item" data-target="mahfudzot">
+                <i class="fas fa-quote-left"></i>
+                <span>Mahfudzot</span>
+            </div>
+            <div class="nav-item" data-target="shalat">
+                <i class="fas fa-clock"></i>
+                <span>Jadwal Shalat</span>
+            </div>
+            <div class="nav-item" data-target="kiblat">
+                <i class="fas fa-compass"></i>
+                <span>Kiblat</span>
+            </div>
+            <div class="nav-item" data-target="doa-shalat">
+                <i class="fas fa-hands-praying"></i>
+                <span>Doa Sholat</span>
+            </div>
+            <div class="nav-item" data-target="kitab">
+                <i class="fas fa-book"></i>
+                <span>Kitab Kuning</span>
+            </div>
+            <!-- ITEM NAVIGASI BARU -->
+            <div class="nav-item" data-target="daftar-surat">
+                <i class="fas fa-scroll"></i>
+                <span>Daftar Surat</span>
+            </div>
+        </nav>
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari doa, wirid, artikel" id="searchInput">
+            </div>
+        </div>
+        <div class="content-area">
+            <!-- Home Content -->
+            <div class="content-section active" id="home-content">
+                <div class="donation-section">
+                    <h3>Al Qur'an Cahaya iman</h3>
+                    <p>Semoga bermanfaat</p>
+                    <img src="WhatsApp Image 2025-09-21 at 22.51.18_dc1c3806.jpg" alt="Foto Madrasah" class="madrasah-photo">
+                    <button class="donate-btn" id="donateBtn">Codingan by Rohimat</button>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <h3 style="color: #10B981;">Tunggu fitur-fitur baru di</h3>
+                    <p style="margin-top: 10px; color: rgba(224, 224, 224, 0.8);">Aplikasi Al-Quran dan Islamic Content terlengkap</p>
+                </div>
+            </div>
+            <!-- Quran Content -->
+            <div class="content-section" id="quran-content">
+                <div id="surah-list-container">
+                    <h3>Daftar Surah Al-Quran</h3>
+                    <div class="view-options">
+                        <div class="view-option active" data-view="surah">Daftar Surah</div>
+                        <div class="view-option" data-view="page">Per Halaman</div>
+                    </div>
+                    <div class="loading" id="quran-loading">
+                        <i class="fas fa-spinner fa-spin"></i> Kata A Imat sabar yahh...
+                    </div>
+                    <div class="surah-list" id="surah-list"></div>
+                    <div id="page-view" style="display: none;">
+                        <div class="page-controls">
+                            <button class="page-btn" id="prevPage">Sebelumnya</button>
+                            <button class="page-btn" id="nextPage">Selanjutnya</button>
+                        </div>
+                        <div class="page-info" id="pageInfo">Halaman 1</div>
+                        <div id="page-content"></div>
+                    </div>
+                </div>
+                <div id="surah-detail-container" style="display: none;">
+                    <!-- Detail surah akan dimuat di sini -->
+                </div>
+            </div>
+            <!-- Doa Harian Content -->
+            <div class="content-section" id="doa-harian-content">
+                <h3>Kumpulan Doa Sehari-hari</h3>
+                <div class="doa-list">
+                    <div class="doa-item" data-doa="doa-makan">
+                        <span>Doa Sebelum Makan</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-selesai-makan">
+                        <span>Doa Sesudah Makan</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-tidur">
+                        <span>Doa Sebelum Tidur</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-bangun-tidur">
+                        <span>Doa Bangun Tidur</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-belajar">
+                        <span>Doa Belajar</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-selesai-belajar">
+                        <span>Doa Sesudah Belajar</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-masuk-masjid">
+                        <span>Doa Masuk Masjid</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-keluar-masjid">
+                        <span>Doa Keluar Masjid</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-masuk-wc">
+                        <span>Doa Masuk WC</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-keluar-wc">
+                        <span>Doa Keluar WC</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-naik-kendaraan">
+                        <span>Doa Naik Kendaraan</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-safar">
+                        <span>Doa Safar (Bepergian)</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div id="doa-detail-container" style="display: none;">
+                    <!-- Detail doa akan dimuat di sini -->
+                </div>
+            </div>
+            <!-- Mahfudzot Content -->
+            <div class="content-section" id="mahfudzot-content">
+                <h3>Mahfudzot (Kata Mutiara Islam)</h3>
+                <div class="mahfudzot-list">
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-1">
+                        <span>1. Niat yang Ikhlas</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-2">
+                        <span>2. Sabar dan Syukur</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-3">
+                        <span>3. Tawakal kepada Allah</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-4">
+                        <span>4. Menuntut Ilmu</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-5">
+                        <span>5. Berbuat Baik kepada Orang Tua</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-6">
+                        <span>6. Menjaga Lisan</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-7">
+                        <span>7. Keutamaan Silaturahmi</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-8">
+                        <span>8. Kejujuran</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-9">
+                        <span>9. Amal Shaleh</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-10">
+                        <span>10. Tolong Menolong</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-11">
+                        <span>11. Rendah Hati</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-12">
+                        <span>12. Malu Berbuat Dosa</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-13">
+                        <span>13. Menjaga Amanah</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-14">
+                        <span>14. Keutamaan Sedekah</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-15">
+                        <span>15. Berpikir Positif</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-16">
+                        <span>16. Menjauhi Sifat Sombong</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-17">
+                        <span>17. Menghargai Waktu</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-18">
+                        <span>18. Ketaatan kepada Allah</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-19">
+                        <span>19. Kasih Sayang</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="mahfudzot-item" data-mahfudzot="mahfudzot-20">
+                        <span>20. Keutamaan Berdzikir</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div id="mahfudzot-detail-container" style="display: none;">
+                    <!-- Detail mahfudzot akan dimuat di sini -->
+                </div>
+            </div>
+            <!-- Shalat Content -->
+            <div class="content-section" id="shalat-content">
+                <h3>Jadwal Shalat</h3>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #2a3041; background: rgba(40, 46, 63, 0.5); border-radius: 5px; margin-bottom: 8px;">
+                        <span>Subuh</span>
+                        <span>04:30 WIB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #2a3041; background: rgba(40, 46, 63, 0.5); border-radius: 5px; margin-bottom: 8px;">
+                        <span>Dzuhur</span>
+                        <span>11:45 WIB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #2a3041; background: rgba(40, 46, 63, 0.5); border-radius: 5px; margin-bottom: 8px;">
+                        <span>Ashar</span>
+                        <span>15:00 WIB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #2a3041; background: rgba(40, 46, 63, 0.5); border-radius: 5px; margin-bottom: 8px;">
+                        <span>Maghrib</span>
+                        <span>17:55 WIB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #2a3041; background: rgba(40, 46, 63, 0.5); border-radius: 5px; margin-bottom: 8px;">
+                        <span>Isya</span>
+                        <span>18:59 WIB</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Kiblat Content -->
+            <div class="content-section" id="kiblat-content">
+                <h3>Arah Kiblat</h3>
+                <div class="kiblat-info">
+                    <p>Arah kiblat dari lokasi Anda menuju Ka'bah di Masjidil Haram, Mekkah</p>
+                    <p id="kiblat-direction">Barat Laut</p>
+                </div>
+                <div class="compass-container">
+                    <div class="compass">
+                        <div class="compass-direction direction-n">N</div>
+                        <div class="compass-direction direction-e">E</div>
+                        <div class="compass-direction direction-s">S</div>
+                        <div class="compass-direction direction-w">W</div>
+                        <div class="compass-arrow" id="compassArrow"></div>
+                        <div class="compass-center"></div>
+                    </div>
+                    <div id="compassStatus">Mengaktifkan kompas...</div>
+                </div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="kiblat-action-btn" id="activateCompass">
+                        <i class="fas fa-compass"></i> Aktifkan Kompas
+                    </button>
+                    <button class="kiblat-action-btn" id="resetCompass">
+                        <i class="fas fa-sync"></i> Reset
+                    </button>
+                </div>
+                <div class="kiblat-info">
+                    <p><strong>Catatan:</strong> Untuk hasil yang akurat, pastikan Anda berada di area terbuka dan mengizinkan akses lokasi</p>
+                </div>
+            </div>
+            <!-- Doa Sholat Content -->
+            <div class="content-section" id="doa-shalat-content">
+                <h3>Doa-Doa Sholat</h3>
+                <div class="doa-list">
+                    <div class="doa-item" data-doa="niat-shalat-subuh">
+                        <span>Niat Sholat Subuh</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="niat-shalat-dzuhur">
+                        <span>Niat Sholat Dzuhur</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="niat-shalat-ashar">
+                        <span>Niat Sholat Ashar</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="niat-shalat-maghrib">
+                        <span>Niat Sholat Maghrib</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="niat-shalat-isya">
+                        <span>Niat Sholat Isya</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-iftitah">
+                        <span>Doa Iftitah</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="alfatihah">
+                        <span>Al-Fatihah</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-ruku">
+                        <span>Doa Ruku</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-bangun-ruku">
+                        <span>Doa Bangun dari Ruku</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-sujud">
+                        <span>Doa Sujud</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-duduk-antara-dua-sujud">
+                        <span>Doa Duduk Antara Dua Sujud</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="tahiyat-awal">
+                        <span>Bacaan Tahiyat Awal</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="tahiyat-akhir">
+                        <span>Bacaan Tahiyat Akhir</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="doa-shalat">
+                        <span>Doa Setelah Sholat</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="doa-item" data-doa="wirid-shalat">
+                        <span>Wiridan Setelah Sholat</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div id="doa-shalat-detail-container" style="display: none;">
+                    <!-- Detail doa sholat akan dimuat di sini -->
+                </div>
+            </div>
+            <!-- Kitab Content -->
+            <div class="content-section" id="kitab-content">
+                <h3>Kitab Kuning</h3>
+                <div class="kitab-list">
+                    <div class="kitab-item" data-kitab="safinatunnaja">
+                        <span>Safinatun Naja</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="kitab-item" data-kitab="ta'limmuta'allim">
+                        <span>Ta'lim Muta'allim</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="kitab-item" data-kitab="tajwid">
+                        <span>Ilmu Tajwid</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div id="kitab-detail-container" style="display: none;">
+                    <!-- Detail kitab akan dimuat di sini -->
+                </div>
+            </div>
+
+            <!-- DAFTAR SURAT Content (BARU) -->
+            <div class="content-section" id="daftar-surat-content">
+                <h3>Daftar 114 Nama Surat dan Artinya</h3>
+                <div class="surah-list" id="full-surah-list" style="margin-top: 20px;">
+                    <div class="loading" id="full-surah-loading">
+                        <i class="fas fa-spinner fa-spin"></i> Memuat daftar surat...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>© 2025 Copy Right Al-Quran Cahaya iman</p>
+        </footer>
+    </div>
+  <script>
+    // DOM elements
+    const navItems = document.querySelectorAll('.nav-item');
+    const contentSections = document.querySelectorAll('.content-section');
+    const backBtn = document.getElementById('backBtn');
+    const searchInput = document.getElementById('searchInput');
+    const donateBtn = document.getElementById('donateBtn');
+    const countdownEl = document.getElementById('countdown');
+    const surahList = document.getElementById('surah-list');
+    const quranLoading = document.getElementById('quran-loading');
+    const surahListContainer = document.getElementById('surah-list-container');
+    const surahDetailContainer = document.getElementById('surah-detail-container');
+    const viewOptions = document.querySelectorAll('.view-option');
+    const pageView = document.getElementById('page-view');
+    const pageContent = document.getElementById('page-content');
+    const pageInfo = document.getElementById('pageInfo');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const doaItems = document.querySelectorAll('.doa-item');
+    const doaDetailContainer = document.getElementById('doa-detail-container');
+    const doaShalatDetailContainer = document.getElementById('doa-shalat-detail-container');
+    const kitabDetailContainer = document.getElementById('kitab-detail-container');
+    const kitabItems = document.querySelectorAll('.kitab-item');
+    const mahfudzotItems = document.querySelectorAll('.mahfudzot-item');
+    const mahfudzotDetailContainer = document.getElementById('mahfudzot-detail-container');
+    const compassArrow = document.getElementById('compassArrow');
+    const compassStatus = document.getElementById('compassStatus');
+    const kiblatDirection = document.getElementById('kiblat-direction');
+    const activateCompassBtn = document.getElementById('activateCompass');
+    const resetCompassBtn = document.getElementById('resetCompass');
+    // Elemen Baru untuk Fitur Daftar Surat
+    const fullSurahList = document.getElementById('full-surah-list');
+    const fullSurahLoading = document.getElementById('full-surah-loading');
+
+    // State management
+    let currentView = 'home'; // 'home', 'surah-list', 'surah-detail', 'doa-detail', 'doa-shalat-detail'
+    let currentPage = 1;
+    const totalPages = 604; // Total halaman Al-Quran
+    let compassActive = false;
+    let watchId = null;
+
+    // Data arti nama surat Al-Quran (tetap sama, tidak diubah)
+    const surahMeanings = {
+        1: "Pembukaan",
+        2: "Sapi Betina",
+        3: "Keluarga Imran",
+        4: "Wanita",
+        5: "Hidangan",
+        6: "Binatang Ternak",
+        7: "Tempat Tertinggi",
+        8: "Rampasan Perang",
+        9: "Pengampunan",
+        10: "Yunus",
+        11: "Hud",
+        12: "Yusuf",
+        13: "Guruh",
+        14: "Ibrahim",
+        15: "Hijr",
+        16: "Lebah",
+        17: "Perjalanan Malam",
+        18: "Penghuni Gua",
+        19: "Maryam",
+        20: "Thaha",
+        21: "Para Nabi",
+        22: "Haji",
+        23: "Orang-Orang Mukmin",
+        24: "Cahaya",
+        25: "Pembeda",
+        26: "Penyair",
+        27: "Semut",
+        28: "Kisah-Kisah",
+        29: "Laba-Laba",
+        30: "Romawi",
+        31: "Luqman",
+        32: "Sajdah",
+        33: "Golongan yang Bersekutu",
+        34: "Saba'",
+        35: "Pencipta",
+        36: "Yasin",
+        37: "Barisan-Barisan",
+        38: "Shad",
+        39: "Rombongan",
+        40: "Yang Mengampuni",
+        41: "Yang Dijelaskan",
+        42: "Musyawarah",
+        43: "Perhiasan",
+        44: "Kabut",
+        45: "Berlutut",
+        46: "Bukit Pasir",
+        47: "Muhammad",
+        48: "Kemenangan",
+        49: "Kamar-Kamar",
+        50: "Qaf",
+        51: "Angin yang Menerbangkan",
+        52: "Bukit Tursina",
+        53: "Bintang",
+        54: "Bulan",
+        55: "Maha Pemurah",
+        56: "Hari Kiamat",
+        57: "Besi",
+        58: "Wanita yang Mengajukan Gugatan",
+        59: "Pengusiran",
+        60: "Wanita yang Diuji",
+        61: "Barisan",
+        62: "Jumat",
+        63: "Orang-Orang Munafik",
+        64: "Hari Diketahui",
+        65: "Talak",
+        66: "Mengharamkan",
+        67: "Kerajaan",
+        68: "Pena",
+        69: "Hari Kiamat",
+        70: "Tempat Naik",
+        71: "Nuh",
+        72: "Jin",
+        73: "Orang yang Berselimut",
+        74: "Orang yang Berkemul",
+        75: "Hari Kebangkitan",
+        76: "Manusia",
+        77: "Malaikat yang Diutus",
+        78: "Berita Besar",
+        79: "Malaikat yang Mencabut",
+        80: "Bermuka Masam",
+        81: "Penggulungan",
+        82: "Terbelah",
+        83: "Orang-Orang Curang",
+        84: "Terbelah",
+        85: "Gugusan Bintang",
+        86: "Yang Datang di Malam Hari",
+        87: "Maha Tinggi",
+        88: "Hari Kiamat",
+        89: "Fajar",
+        90: "Negeri",
+        91: "Matahari",
+        92: "Malam",
+        93: "Waktu Dhuha",
+        94: "Lapang",
+        95: "Buah Tin",
+        96: "Segumpal Darah",
+        97: "Kemuliaan",
+        98: "Bukti Nyata",
+        99: "Kegoncangan",
+        100: "Kuda yang Berlari Kencang",
+        101: "Hari Kiamat",
+        102: "Bermegah-Megahan",
+        103: "Waktu",
+        104: "Pengumpat",
+        105: "Gajah",
+        106: "Quraisy",
+        107: "Barang yang Berguna",
+        108: "Nikmat yang Banyak",
+        109: "Orang-Orang Kafir",
+        110: "Pertolongan",
+        111: "Api yang Bergejolak",
+        112: "Ikhlas",
+        113: "Subuh",
+        114: "Manusia"
+    };
+
+    // Data doa-doa harian (tetap sama)
+    const doaData = {
+        'doa-makan': {
+            title: 'Doa Sebelum Makan',
+            arab: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا، وَقِنَا عَذَابَ النَّارِ',
+            latin: 'Allahumma barik lana fima razaqtana, wa qina azabannar',
+            translation: 'Ya Allah, berkahilah untuk kami pada apa yang Engkau rezekikan kepada kami, dan lindungilah kami dari adzab neraka'
+        },
+        'doa-selesai-makan': {
+            title: 'Doa Sesudah Makan',
+            arab: 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مِنَ الْمُسْلِمِينَ',
+            latin: 'Alhamdulillahil ladzi ath\'amana wa saqana wa ja\'alana minal muslimin',
+            translation: 'Segala puji bagi Allah yang telah memberi kami makan dan minum serta menjadikan kami termasuk orang-orang muslim'
+        },
+        'doa-tidur': {
+            title: 'Doa Sebelum Tidur',
+            arab: 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا',
+            latin: 'Bismikallahumma amutu wa ahya',
+            translation: 'Dengan nama-Mu ya Allah, aku mati dan aku hidup'
+        },
+        'doa-bangun-tidur': {
+            title: 'Doa Bangun Tidur',
+            arab: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',
+            latin: 'Alhamdulillahil ladzi ahyaana ba\'da ma amaatana wa ilaihin nushur',
+            translation: 'Segala puji bagi Allah yang telah menghidupkan kami setelah mematikan kami, dan kepada-Nya kami dibangkitkan'
+        },
+        'doa-belajar': {
+            title: 'Doa Belajar',
+            arab: 'رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا',
+            latin: 'Rabbi zidni ilma warzuqni fahma',
+            translation: 'Ya Rabbku, tambahkanlah aku ilmu dan berilah aku pemahaman'
+        },
+        'doa-selesai-belajar': {
+            title: 'Doa Sesudah Belajar',
+            arab: 'اللَّهُمَّ أَرِنَا الْحَقَّ حَقًّا وَارْزُقْنَا اتِّبَاعَهُ، وَأَرِنَا الْبَاطِلَ بَاطِلًا وَارْزُقْنَا اجْتِنَابَهُ',
+            latin: 'Allahumma arinal haqqa haqqan warzuqnat tibaa\'ah, wa arinal baathila baathilan warzuqnaj tinaabah',
+            translation: 'Ya Allah, tunjukkanlah kepada kami kebenaran itu sebagai kebenaran dan berilah kami kemampuan untuk mengikutinya. Dan tunjukkanlah kepada kami kebatilan itu sebagai kebatilan dan berilah kami kemampuan untuk menjauhinya'
+        },
+        'doa-masuk-masjid': {
+            title: 'Doa Masuk Masjid',
+            arab: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
+            latin: 'Allahummaf tah li abwaaba rahmatik',
+            translation: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu'
+        },
+        'doa-keluar-masjid': {
+            title: 'Doa Keluar Masjid',
+            arab: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ',
+            latin: 'Allahumma inni as\'aluka min fadhlik',
+            translation: 'Ya Allah, sesungguhnya aku memohon kepada-Mu dari karunia-Mu'
+        },
+        'doa-masuk-wc': {
+            title: 'Doa Masuk WC',
+            arab: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',
+            latin: 'Allahumma inni a\'udzu bika minal khubutsi wal khaba\'its',
+            translation: 'Ya Allah, sesungguhnya aku berlindung kepada-Mu dari godaan setan laki-laki dan setan perempuan'
+        },
+        'doa-keluar-wc': {
+            title: 'Doa Keluar WC',
+            arab: 'غُفْرَانَكَ، الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَى وَعَافَانِي',
+            latin: 'Ghufranak, alhamdulillahil ladzi adhhaba annil adza wa \'afani',
+            translation: 'Aku minta ampun kepada-Mu, segala puji bagi Allah yang telah menghilangkan kotoran dari badanku dan yang telah menyehatkanku'
+        },
+        'doa-naik-kendaraan': {
+            title: 'Doa Naik Kendaraan',
+            arab: 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ، وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ',
+            latin: 'Subhanalladzi sakhkhara lana hadza wa ma kunna lahu muqrinin, wa inna ila rabbina lamunqalibun',
+            translation: 'Maha Suci Allah yang telah menundukkan untuk kami (kendaraan) ini. Padahal sebelumnya kami tidak mampu menguasainya. Dan sesungguhnya kami akan kembali kepada Tuhan kami'
+        },
+        'doa-safar': {
+            title: 'Doa Safar (Bepergian)',
+            arab: 'اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا، وَاطْوِ عَنَّا بُعْدَهُ',
+            latin: 'Allahumma hawwin \'alaina safarana hadza, watwi \'anna bu\'dah',
+            translation: 'Ya Allah, mudahkanlah bagi kami perjalanan kami ini, dan dekatkanlah bagi kami kejauhannya'
+        }
+    };
+
+    // Data doa sholat (tetap sama)
+    const doaShalatData = {
+        'niat-shalat-subuh': {
+            title: 'Niat Sholat Subuh',
+            subTitle: '2 Rakaat',
+            arab: 'أُصَلِّي فَرْضَ الصُّبْحِ رَكْعَتَيْنِ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لِلَّهِ تَعَالَى',
+            latin: 'Ushalli fardhash shubhi rak\'ataini mustaqbilal qiblati adaa\'an lillahi ta\'ala',
+            translation: 'Aku berniat shalat fardhu Subuh dua rakaat menghadap kiblat karena Allah Ta\'ala'
+        },
+        'niat-shalat-dzuhur': {
+            title: 'Niat Sholat Dzuhur',
+            subTitle: '4 Rakaat',
+            arab: 'أُصَلِّي فَرْضَ الظُّهْرِ أَرْبَعَ رَكَعَاتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لِلَّهِ تَعَالَى',
+            latin: 'Ushalli fardhadz dzuhri arba\'a raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
+            translation: 'Aku berniat shalat fardhu Dzuhur empat rakaat menghadap kiblat karena Allah Ta\'ala'
+        },
+        'niat-shalat-ashar': {
+            title: 'Niat Sholat Ashar',
+            subTitle: '4 Rakaat',
+            arab: 'أُصَلِّي فَرْضَ الْعَصْرِ أَرْبَعَ رَكَعَاتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لِلَّهِ تَعَالَى',
+            latin: 'Ushalli fardhal \'ashri arba\'a raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
+            translation: 'Aku berniat shalat fardhu Ashar empat rakaat menghadap kiblat karena Allah Ta\'ala'
+        },
+        'niat-shalat-maghrib': {
+            title: 'Niat Sholat Maghrib',
+            subTitle: '3 Rakaat',
+            arab: 'أُصَلِّي فَرْضَ الْمَغْرِبِ ثَلَاثَ رَكَعَاتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لِلَّهِ تَعَالَى',
+            latin: 'Ushalli fardhal maghribi tsalatha raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
+            translation: 'Aku berniat shalat fardhu Maghrib tiga rakaat menghadap kiblat karena Allah Ta\'ala'
+        },
+        'niat-shalat-isya': {
+            title: 'Niat Sholat Isya',
+            subTitle: '4 Rakaat',
+            arab: 'أُصَلِّي فَرْضَ الْعِشَاءِ أَرْبَعَ رَكَعَاتٍ مُسْتَقْبِلَ الْقِبْلَةِ أَدَاءً لِلَّهِ تَعَالَى',
+            latin: 'Ushalli fardhal \'isya\'i arba\'a raka\'atin mustaqbilal qiblati adaa\'an lillahi ta\'ala',
+            translation: 'Aku berniat shalat fardhu Isya empat rakaat menghadap kiblat karena Allah Ta\'ala'
+        },
+        'doa-iftitah': {
+            title: 'Doa Iftitah',
+            arab: 'اَللهُ اَكْبَرُ كَبِيْرًا وَالْحَمْدُ لِلّهِ كَثِيْرًا وَسُبْحَانَ اللهِ بُكْرَةً وَاَصِيْلًا. اِنِّى وَجَّهْتُ وَجْهِيَ لِلَّذِيْ فَطَرَالسَّمَاوَاتِ وَالْاَرْضَ حَنِيْفًا مُسْلِمًا وَمَا اَنَا مِنَ الْمُشْرِكِيْنَ. اِنَّ صَلَاتِيْ وَنُسُكِيْ وَمَحْيَايَ وَمَمَاتِيْ لِلّهِ رَبِّ الْعَا لَمِيْنَ. لاَ شَرِيْكَ لَهُ وَبِذَلِكَ اُمِرْتُ وَاَنَا مِنَ الْمُسْلِمِيْنَ',
+            latin: 'Allaahu akbar kabiraa walhamdulillaahi katsiiraa, wa subhaanallaahi bukratan wa\'ashiilaa. Innii wajjahtu wajhiya lilladzii fatharas samaawaati wal ardha haniifan musliman wa maa anaa minal musyrikiin. Inna shalaatii wa nusukii wa mahyaaya wa mamaatii lillaahi rabbil \'aalamiin. Laa syariikalahu wa bidzaalika umirtu wa ana minal muslimiin',
+            translation: 'Artinya: "Allah maha besar, maha sempurna kebesaran-Nya. Segala puji bagi Allah, pujian yang sebanyak-banyaknya. Dan maha suci Allah sepanjang pagi dan petang. Kuhadapkan wajahku kepada zat yang telah menciptakan langit dan bumi dengan penuh ketulusan dan kepasrahan dan aku bukanlah termasuk orang-orang yang musyrik. Sesungguhnya shalatku, ibadahku, hidupku dan matiku semuanya untuk Allah, penguasa alam semesta. Tidak ada sekutu bagi-Nya dan dengan demikianlah aku diperintahkan dan aku termasuk orang-orang yang muslim',
+        },
+        'alfatihah': {
+            title: 'Al-Fatihah',
+            arab: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ (1) الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَٰنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاکَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
+            latin: 'Bismillāhir-Raĥmānir-Raĥīm (1) Al-ĥamdu lillāhi Rabbil-\'ālamīn (2) Ar-Raĥmānir-Raĥīm (3) Māliki yawmid-dīn (4) Iyyāka na\'budu wa iyyāka nasta\'īn (5) Ihdinaṣ-ṣirāṭal-mustaqīm (6) Ṣirāṭalladhīna an\'amta \'alayhim ghayril-maghḍūbi \'alayhim walāḍ-ḍāllīn (7)',
+            translation: 'Dengan nama Allah Yang Maha Pengasih, Maha Penyayang. (1) Segala puji bagi Allah, Tuhan seluruh alam, (2) Yang Maha Pengasih, Maha Penyayang, (3) Pemilik hari pembalasan. (4) Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami meminta pertolongan. (5) Tunjukilah kami jalan yang lurus, (6) (yaitu) jalan orang-orang yang telah Engkau beri nikmat kepadanya; bukan (jalan) mereka yang dimurkai, dan bukan (pula jalan) mereka yang sesat. (7)'
+        },
+        'doa-ruku': {
+            title: 'Doa Ruku',
+            arab: '3x سُبْحَانَ رَبِّيَ الْعَظِيمِ',
+            latin: 'Subhana rabbiyal \'azim',
+            translation: 'Maha Suci Tuhanku Yang Maha Agung'
+        },
+        'doa-bangun-ruku': {
+            title: 'Doa Bangun dari Ruku',
+            arab: 'سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ',
+            latin: 'Sami\'allahu liman hamidah',
+            translation: 'Allah mendengar orang yang memuji-Nya'
+        },
+        'doa-sujud': {
+            title: 'Doa Sujud',
+            arab: '3x سُبْحَانَ رَبِّيَ الْأَعْلَى',
+            latin: 'Subhana rabbiyal a\'la',
+            translation: 'Maha Suci Tuhanku Yang Maha Tinggi'
+        },
+        'doa-duduk-antara-dua-sujud': {
+            title: 'Doa Duduk Antara Dua Sujud',
+            arab: 'رَبِّ اغْفِرْ لِي وَارْحَمْنِي وَاجْبُرْنِي وَارْفَعْنِي وَارْزُقْنِي وَاهْدِنِي وَعَافِنِي وَاعْفُ عَنِّي',
+            latin: 'Rabbighfir li warhamni wajburni warfa\'ni warzuqni wahdini wa \'afini wa\'fu \'anni',
+            translation: 'Ya Tuhanku, ampunilah aku, rahmatilah aku, cukupilah aku, angkatlah derajatku, berilah rezeki kepadaku, berilah aku petunjuk, berilah kesehatan kepadaku dan ampunilah aku'
+        },
+        'tahiyat-awal': {
+            title: 'Bacaan Tahiyat Awal',
+            arab: 'االتَّحِيَّاتُ الْمُبَارَكَاتُ الصَّلَوَاتُ الطَّيِّبَاتُ لِلَّهِ السَّلَامُ عَلَيْك أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ, أَشْهَدُ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللهِ, اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ',
+            latin: 'At-tahiyyatul mubarakatush shalawatuth thayyibatu lillah, assalamu \'alaika ayyuhan nabiyyu wa rahmatullahi wa barakatuh, assalamu \'alaina wa \'ala \'ibadillahis salihin, asyhadu an la ilaha illallah wa asyhadu anna muhammadan rasulullah',
+            translation: 'Segala penghormatan, keberkahan, shalawat dan kebaikan hanya bagi Allah. Salam sejahtera kepadamu wahai Nabi, beserta rahmat Allah dan berkah-Nya. Salam sejahtera kepada kami dan hamba-hamba Allah yang shaleh. Aku bersaksi bahwa tiada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah utusan Allah'
+        },
+        'tahiyat-akhir': {
+            title: 'Bacaan Tahiyat Akhir',
+            arab: 'التَّحِيَّاتُ الْمُبَارَكَاتُ الصَّلَوَاتُ الطَّيِّبَاتُ لِلَّهِ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ، السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللَّهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، اللَّهومَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، وَبَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، فِي الْعَالَمِينَ إِنَّكَ حَمِيدٌ مَجِيدٌ',
+            latin: 'At-tahiyyatu al-mubarakaatu ash-shalawaatu ath-thayyibaatu lillah, assalaamu ’alaika ayyuhan-nabiyyu wa rahmatullahi wa barakaatuh, assalaamu ’alaina wa ’ala ’ibaadillahis-saalihiin, asyhadu allaa ilaaha illallaah, wa asyhadu anna Muhammadan rasuulullaah, allaahumma shalli ’alaa Muhammad wa ’alaa aali Muhammad, kamaa shallaita ’alaa Ibraahiim wa ’alaa aali Ibraahiim, wa baarik ’alaa Muhammad wa ’alaa aali Muhammad, kamaa baarakta ’alaa Ibraahiim wa ’alaa aali Ibraahiim, fil-’aalamiina innaka hamiidum majiid',
+            translation: 'Segala penghormatan, keberkahan, shalawat dan kebaikan hanya bagi Allah. Salam sejahtera kepadamu wahai Nabi, beserta rahmat Allah dan berkah-Nya. Salam sejahtera kepada kami dan hamba-hamba Allah yang shaleh. Aku bersaksi bahwa tiada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah hamba-Nya dan utusan-Nya'
+        },
+        'doa-shalat': {
+            title: 'Doa Setelah Sholat',
+            arab: 'اَللّٰهُمَّ أَعِنَّا عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ، اَلْحَمْدُ لِلّٰهِ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ، حَمْدًا يُوَافِي نِعَمَهُ وَيُكَافِئُ مَزِيدَهُ. يَا رَبَّنَا لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ وَعَظِيمِ سُلْطَانِكَ. اَللّٰهُمَّ اجْعَلْنَا مِنَ الشَّاكِرِينَ، وَاجْعَلْنَا مِنَ الذَّاكِرِينَ، وَاجْعَلْنَا مِنْ عِبَادِكَ الصَّالِحِينَ، اَللّٰهُمَّ اغْفِرْ لِلْمُسْلِمِينَ وَالْمُسْلِمَاتِ، وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ، اَلْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ، وَتَابِعِ اللّٰهُمَّ بَيْنَنَا وَبَيْنَهُمْ بِالْخَيْرَاتِ، إِنَّكَ سَمِيعُ الدُّعَاءِ، وَقَاضِي الْحَاجَاتِ، وَغَافِرُ الزَّلَّاتِ، يَا رَبَّ الْعَالَمِينَ.',
+            latin: 'Allahumma a‘innaa ‘ala dzikrika wa syukrika wa husni ‘ibaadatika. Alhamdu lillaahi hamdan katsiran thayyiban mubaarakan fiih, hamdan yuwaafi ni‘amahu wa yukaafi-u maziidah. Yaa rabbanaa lakal-hamdu kamaa yanbaghii lijalaali wajhika wa ‘azhiimi sulthaanik. Allahumma aj‘alnaa minasy-syaakiriin, waj‘alnaa minadz-dzaakiriin, waj‘alnaa min ‘ibaadikas-shaalihiin. Allahummaghfir lil-muslimiina wal-muslimaat, wal-mu’miniina wal-mu’minaat, al-ahyaa-i minhum wal-amwaat. Wa taabi‘illaahumma bainanaa wa bainahum bil-khoyroot, innaka samii‘ud-du‘aa, wa qaadhiyal-haajaat, wa ghaafiruz-zallaati, yaa rabbal-‘aalamiin.',
+           translation: 'Ya Allah, tolonglah kami untuk selalu mengingat-Mu, bersyukur kepada-Mu, dan beribadah dengan sebaik-baiknya kepada-Mu. Segala puji bagi Allah, dengan pujian yang banyak, baik, dan penuh berkah, pujian yang sepadan dengan nikmat-nikmat-Nya dan mencukupi tambahan karunia-Nya. Wahai Tuhan kami, hanya bagi-Mu segala puji sebagaimana layak bagi keagungan wajah-Mu dan kebesaran kekuasaan-Mu. Ya Allah, jadikanlah kami termasuk golongan orang-orang yang bersyukur, orang-orang yang banyak berzikir, dan hamba-hamba-Mu yang saleh. Ya Allah, ampunilah kaum muslimin dan muslimat, mukminin dan mukminat, yang masih hidup maupun yang telah meninggal. Dan pertemukanlah kami dengan mereka dalam kebaikan. Sesungguhnya Engkau Maha Mendengar doa, Maha Mengabulkan hajat, và Maha Pengampun dosa-dosa, wahai Rabb semesta alam.',
+        },
+        'wirid-shalat':  {
+            arab: 'أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ. اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالإِكْرَامِ. سُبْحَانَ اللَّهِ (٣٣)، الْحَمْدُ لِلَّهِ (٣٣)، اللَّهُ أَكْبَرُ (٣٣). لَا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.', 
+            latin: 'Astaghfirullaah, Astaghfirullaah, Astaghfirullaah. Allaahumma antas-salaamu wa minkas-salaam, tabaarakta yaa dzal-jalaali wal-ikraam. Subhaanallaah (33x), Alhamdulillaah (33x), Allaahu akbar (33x). Laa ilaaha illallaahu wahdahu laa syariika lah, lahul-mulku walahul-hamdu wa huwa ’ala kulli syai-in qadiir.',
+            translation: 'Aku memohon ampun kepada Allah (3x). Ya Allah, Engkaulah Maha Sejahtera dan dari-Mu kesejahteraan, Maha Suci Engkau wahai Tuhan yang memiliki keagungan dan kemuliaan. Maha Suci Allah (33x), Segala puji bagi Allah (33x), Allah Maha Besar (33x). Tiada Tuhan selain Allah Yang Maha Esa, tiada sekutu bagi-Nyabagi-Nya kerajaan dan segala pujian, và Dia Maha Kuasa atas segala sesuatu.'
+        },
+    };
+
+    // Data Kitab Kuning (tetap sama)
+    const kitabData = {
+        'safinatunnaja': {
+            title: 'Safinatun Naja',
+            content: `
+                <div class="surah-header">
+                    <div class="surah-title-latin">Safinatun Najah</div>
+                    <div class="surah-meta">Kitab Fiqih dasar oleh Syeikh Salim bin Sumair Al-Hadrami</div>
+                </div>
+                <div class="kitab-content">
+                    <!-- Pembukaan -->
+                    <h3>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</h3>
+                    <p>Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</p>
+                    <p><b>Pengertian:</b> Segala amal perbuatan hendaknya dimulai dengan menyebut nama Allah agar mendapatkan keberkahan.</p>
+                    <!-- Bab 1: Rukun Islam -->
+                    <h3>أَرْكَانُ الإِسْلاَمِ</h3>
+                    <div class="arab-text">
+                        أَرْكَانُ الإِسْلاَمِ خَمْسَةٌ: شَهَادَةُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، 
+                        وَإِقَامُ الصَّلاَةِ، وَإِيتَاءُ الزَّكَاةِ، وَصَوْمُ رَمَضَانَ، وَحَجُّ البَيْتِ لِمَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلاً
+                    </div>
+                    <p>Rukun Islam ada lima: Syahadat, shalat, zakat, puasa Ramadhan, và haji bagi yang mampu.</p>
+                    <p><b>Pengertian:</b> Lima dasar pokok yang menjadi pondasi agama Islam. Barangsiapa meninggalkannya, maka rusaklah agamanya.</p>
+                    <!-- Bab 2: Thaharah (Bersuci) -->
+                    <h3>بَابُ الطَّهَارَةِ</h3>
+                    <div class="arab-text">
+                        اَلطَّهَارَةُ رَفْعُ الْحَدَثِ وَإِزَالَةُ النَّجَاسَةِ
+                    </div>
+                    <p>Thaharah adalah mengangkat hadats và menghilangkan najis.</p>
+                    <p><b>Pengertian:</b> Bersuci adalah syarat sah ibadah, khususnya shalat.</p>
+                    <!-- Bab 3: Shalat -->
+                    <h3>بَابُ الصَّلَاةِ</h3>
+                    <div class="arab-text">
+                        اَلصَّلَاةُ أَرْبَعَةُ أَقْسَامٍ: فَرْضٌ، وَوَاجِبٌ، وَسُنَّةٌ، وَنَافِلَةٌ
+                    </div>
+                    <p>Shalat terbagi menjadi empat: fardhu, wajib, sunnah, và nafilah.</p>
+                    <p><b>Pengertian:</b> Shalat adalah ibadah pokok dalam Islam yang wajib dikerjakan sesuai ketentuan syariat.</p>
+                    <!-- Bab 4: Zakat -->
+                    <h3>بَابُ الزَّكَاةِ</h3>
+                    <div class="arab-text">
+                        وَفَرَائِضُ الزَّكَاةِ أَرْبَعَةٌ: النِّيَّةُ، وَالإِخْرَاجُ، وَالإِعْطَاءُ، وَالْمُتَزَكِّي
+                    </div>
+                    <p>Zakat memiliki empat syarat: niat, mengeluarkan, memberikan, và orang yang berhak menerima.</p>
+                    <p><b>Pengertian:</b> Zakat adalah ibadah sosial yang membersihkan harta và jiwa.</p>
+                    <!-- Bab 5: Puasa -->
+                    <h3>بَابُ الصِّيَامِ</h3>
+                    <div class="arab-text">
+                        الصِّيَامُ هُوَ الْإِمْسَاكُ عَنِ الْمُفْطِرَاتِ مِنْ طُلُوعِ الْفَجْرِ إِلَى غُرُوبِ الشَّمْسِ مَعَ النِّيَّةِ
+                    </div>
+                    <p>Puasa adalah menahan diri dari hal-hal yang membatalkan sejak terbit fajar hingga terbenam matahari dengan niat.</p>
+                    <p><b>Pengertian:</b> Puasa melatih jiwa untuk sabar, menahan hawa nafsu, và mendekatkan diri kepada Allah.</p>
+                    <!-- Bab 6: Haji -->
+                    <h3>بَابُ الْحَجِّ</h3>
+                    <div class="arab-text">
+                        اَلْحَجُّ هُوَ قَصْدُ الْبَيْتِ الْحَرَامِ لِأَدَاءِ أَعْمَالٍ مَخْصُوصَةٍ فِي وَقْتٍ مَخْصُوصٍ
+                    </div>
+                    <p>Haji adalah menuju Baitullah untuk melaksanakan amalan-amalan tertentu pada waktu tertentu.</p>
+                    <p><b>Pengertian:</b> Haji adalah ibadah puncak dalam Islam yang menyempurnakan keislaman seseorang.</p>
+                </div>
+            `
+        },
+        'ta\'limmuta\'allim': {
+            title: 'Ta\'lim Muta\'allim',
+            content: `
+                <div class="surah-header">
+                    <div class="surah-title-latin">Ta'lim Muta'allim</div>
+                    <div class="surah-meta">Kitab adab menuntut ilmu oleh Syeikh Burhanuddin Az-Zarnuji</div>
+                </div>
+                <div class="kitab-content">
+                    <p><strong>Pengertian:</strong></p>
+                    <p>Kitab <em>Ta'lim al-Muta'allim Thariq al-Ta'allum</em> adalah kitab pedoman klasik karya Syaikh Burhanuddin Az-Zarnuji yang banyak dipelajari di pesantren. Kitab ini berisi adab-adab menuntut ilmu, mulai dari niat, memilih guru, kesungguhan, hingga bagaimana seorang penuntut ilmu menjaga keberkahan dalam perjalanan ilmunya. Terdiri dari 13 bab utama.</p>
+                    <hr />
+                    <h3>Bab 1: Hakikat Ilmu, Fiqih, và Keutamaannya</h3>
+                    <p>Ilmu adalah cahaya yang menerangi hati. Ilmu fiqih menempati kedudukan tertinggi karena menjadi pedoman ibadah seorang muslim.</p>
+                    <div class="arab-text">فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ</div>
+                    <p>“Maka ketahuilah bahwa tiada Tuhan selain Allah.” (QS. Muhammad: 19)</p>
+                    <p>Ilmu bukan hanya untuk dunia, tetapi untuk mendekatkan diri kepada Allah. Ilmu tanpa amal bagaikan pohon tanpa buah.</p>
+                    <hr />
+                    <h3>Bab 2: Niat dalam Menuntut Ilmu</h3>
+                    <p>Niat adalah ruh dari setiap amal. Penuntut ilmu harus meniatkan belajarnya untuk mencari ridha Allah, menghilangkan kebodohan, và menjaga syariat.</p>
+                    <div class="arab-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
+                    <p>“Sesungguhnya amal itu tergantung pada niatnya.” (HR. Bukhari & Muslim)</p>
+                    <p>Ilmu yang dituntut demi dunia tidak akan membawa keberkahan.</p>
+                    <hr />
+                    <h3>Bab 3: Memilih Ilmu, Guru, và Teman</h3>
+                    <p>Ilmu yang utama adalah ilmu agama. Dalam memilih guru, carilah yang alim, wara’, và berakhlak mulia. Teman belajar harus orang yang rajin, jujur, rendah hati, dan mendorong kita kepada kebaikan.</p>
+                    <p><em>Az-Zarnuji berkata:</em> “Hindarilah sahabat yang malas, suka membuang waktu, dan berakhlak buruk.”</p>
+                    <hr />
+                    <h3>Bab 4: Menghormati Guru</h3>
+                    <p>Murid wajib memuliakan guru dengan tawadhu’, mendengarkan dengan penuh perhatian, dan tidak menyakiti hati gurunya. Guru adalah perantara sampainya ilmu, sehingga adab terhadap guru lebih utama daripada banyaknya pelajaran.</p>
+                    <p>Dikatakan: “Siapa yang tidak menghormati gurunya, maka ia tidak akan mendapat manfaat dari ilmunya.”</p>
+                    <hr />
+                    <h3>Bab 5: Kesungguhan, Ketekunan, dan Ambisi</h3>
+                    <p>Ilmu tidak akan didapat kecuali dengan kesungguhan. Murid harus sabar menghadapi kesulitan, tekun belajar setiap hari, dan tidak cepat puas dengan sedikit ilmu.</p>
+                    <p>Belajar dengan disiplin lebih baik daripada belajar dengan terburu-buru.</p>
+                    <hr />
+                    <h3>Bab 6: Tawakal kepada Allah</h3>
+                    <p>Ilmu tidak semata-mata hasil kecerdasan, tetapi juga taufik Allah. Oleh karena itu murid wajib bertawakal, banyak berdoa, dan menjauhi maksiat agar hatinya diterangi cahaya ilmu.</p>
+                    <hr />
+                    <h3>Bab 7: Waktu yang Tepat untuk Belajar</h3>
+                    <p>Waktu paling utama untuk belajar adalah pada malam hari dan setelah shalat Subuh. Pagi hari memberi kekuatan hafalan, malam hari memberi ketajaman pemahaman.</p>
+                    <p>Belajar di waktu lapar lebih bermanfaat daripada kenyang berlebihan.</p>
+                    <hr />
+                    <h3>Bab 8: Kasih Sayang dan Nasihat</h3>
+                    <p>Penuntut ilmu hendaknya saling menasihati dalam kebaikan, penuh kasih sayang, dan saling membantu dalam belajar. Jangan saling merendahkan dan jangan pula merasa lebih baik dari sesama murid.</p>
+                    <hr />
+                    <h3>Bab 9: Menghormati Ilmu dan Kitab</h3>
+                    <p>Ilmu harus dijaga dengan memuliakan kitab. Jangan menaruh kitab di tempat najis, jangan melangkahi kitab, dan jangan menulis sesuatu yang sia-sia di dalamnya.</p>
+                    <p>Kemuliaan ilmu terlihat dari bagaimana seseorang memperlakukan alat belajarnya.</p>
+                    <hr />
+                    <h3>Bab 10: Menjaga Diri dari Sifat Buruk</h3>
+                    <p>Penuntut ilmu wajib menjauhi sifat sombong, iri hati, dengki, dan malas. Akhlak yang buruk dapat menghalangi masuknya ilmu ke dalam hati.</p>
+                    <p>Kesombongan dalam ilmu adalah sebab terhalangnya cahaya ilmu.</p>
+                    <hr />
+                    <h3>Bab 11: Zuhud dan Qana’ah</h3>
+                    <p>Murid harus zuhud terhadap dunia, tidak serakah, dan qana’ah dengan rezeki yang Allah berikan. Terlalu cinta dunia akan melalaikan dari ilmu dan ibadah.</p>
+                    <hr />
+                    <h3>Bab 12: Rezeki dan Waktu Belajar</h3>
+                    <p>Rezeki datang dari Allah. Murid tidak boleh meninggalkan belajar hanya karena takut miskin. Barang siapa sibuk dengan ilmu karena Allah, Allah akan mencukupkan rezekinya.</p>
+                    <hr />
+                    <h3>Bab 13: Faktor-faktor yang Membantu Memperoleh Ilmu</h3>
+                    <p>Di antara faktor utama untuk memperoleh ilmu adalah: kesungguhan, doa, keberkahan guru, akhlak yang baik, menjauhi maksiat, serta menjaga hati dari sifat buruk.</p>
+                    <p>Ilmu adalah cahaya, dan cahaya Allah tidak akan diberikan kepada orang yang bermaksiat.</p>
+                    <hr />
+                    <p><em>Kesimpulan:</em> Kitab Ta'lim Muta'allim adalah panduan abadi bagi penuntut ilmu. Ia tidak hanya mengajarkan cara belajar, tetapi juga bagaimana menjaga hati, niat, adab, dan keberkahan dalam menuntut ilmu sehingga ilmunya bermanfaat di dunia dan akhirat.</p>
+                </div>
+            `
+        },
+        'tajwid': {
+            title: 'Ilmu Tajwid',
+            content: `
+                <div class="surah-header">
+                    <div class="surah-title-latin">Ilmu Tajwid</div>
+                    <div class="surah-meta">Kaidah-kaidah membaca Al-Quran dengan benar</div>
+                </div>
+                <div class="kitab-content">
+                    <p><strong>Pengertian:</strong></p>
+                    <p>Ilmu Tajwid adalah ilmu yang mempelajari cara membaca Al-Qur’an dengan baik dan benar, sesuai makhraj (tempat keluarnya huruf) dan sifat huruf, agar bacaan tidak salah dan tetap terjaga sebagaimana Rasulullah ﷺ membacanya.</p>
+                    <hr />
+                    <h3>1. Hukum Nun Mati (نْ) dan Tanwin (ــًــٍــٌ)</h3>
+                    <p>Nun mati dan tanwin memiliki 4 hukum bacaan:</p>
+                    <ul>
+                        <li><strong>Idzhar</strong>: dibaca jelas jika bertemu huruf halqi (ء، ه، ع، ح، غ، خ).<br>
+                            <em>Contoh:</em> <span class="arab-text">مِنْهُ</span> (minhu)</li>
+                        <li><strong>Idgham</strong>: dimasukkan ke huruf sesudahnya, terbagi dua:
+                            <ul>
+                                <li>Bighunnah (dengan dengung) bila bertemu (ي، ن، م، و).<br>
+                                    <em>Contoh:</em> <span class="arab-text">مَنْ يَقُولُ</span> (man yaqulu)</li>
+                                <li>Bilaghunnah (tanpa dengung) bila bertemu (ل، ر).<br>
+                                    <em>Contoh:</em> <span class="arab-text">مِنْ رَبِّهِمْ</span> (min rabbihim)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Iqlab</strong>: berubah menjadi bunyi <em>mim</em> dengan dengung bila bertemu huruf ب.<br>
+                            <em>Contoh:</em> <span class="arab-text">أَنْبِئْهُمْ</span> (anbi’ hum)</li>
+                        <li><strong>Ikhfa</strong>: dibaca samar dengan dengung bila bertemu huruf selain di atas (15 huruf).<br>
+                            <em>Contoh:</em> <span class="arab-text">مِنْ صُدُورِ</span> (min sudur)</li>
+                    </ul>
+                    <hr />
+                    <h3>2. Hukum Mim Sukun (مْ)</h3>
+                    <p>Mim sukun memiliki 3 hukum:</p>
+                    <ul>
+                        <li><strong>Idgham Mimi</strong>: jika mim sukun bertemu mim, dibaca dengan dengung.<br>
+                            <em>Contoh:</em> <span class="arab-text">لَهُمْ مَا</span> (lahum ma)</li>
+                        <li><strong>Ikhfa Syafawi</strong>: jika mim sukun bertemu ب, dibaca samar dengan dengung.<br>
+                            <em>Contoh:</em> <span class="arab-text">تَرْمِيهِمْ بِحِجَارَةٍ</span> (tarmihim bihijarah)</li>
+                        <li><strong>Idzhar Syafawi</strong>: jika mim sukun bertemu huruf selain mim dan ب, dibaca jelas.<br>
+                            <em>Contoh:</em> <span class="arab-text">عَلَيْهِمْ قَوْمًا</span> (’alaihim qawman)</li>
+                    </ul>
+                    <hr />
+                    <h3>3. Mad (Bacaan Panjang)</h3>
+                    <p>Mad adalah memanjangkan suara huruf mad (ا، و، ي). Panjang bacaan dihitung dengan harakat.</p>
+                    <ul>
+                        <li><strong>Mad Thabi’i (Asli)</strong>: panjang 2 harakat.<br>
+                            <em>Contoh:</em> <span class="arab-text">قَالَ</span> (qaala), <span class="arab-text">يَقُولُ</span> (yaqulu)</li>
+                        <li><strong>Mad Wajib Muttashil</strong>: bila huruf mad bertemu hamzah dalam satu kata, panjang 4–5 harakat.<br>
+                            <em>Contoh:</em> <span class="arab-text">جَاءَ</span> (jaa-a)</li>
+                        <li><strong>Mad Jaiz Munfashil</strong>: bila huruf mad bertemu hamzah tapi beda kata, panjang 2–5 harakat.<br>
+                            <em>Contoh:</em> <span class="arab-text">فِي أَنفُسِكُمْ</span> (fi anfusikum)</li>
+                        <li><strong>Mad ‘Aridh Lissukun</strong>: bila huruf mad bertemu huruf hidup yang diwaqafkan, panjang 2–6 harakat.<br>
+                            <em>Contoh:</em> <span class="arab-text">الْعَالَمِينَ</span> (al-‘aalamiin)</li>
+                        <li><strong>Mad Lazim</strong>: bila huruf mad bertemu huruf sukun asli, panjang 6 harakat.<br>
+                            <em>Contoh:</em> <span class="arab-text">الضَّالِّينَ</span> (ad-dhaalliin)</li>
+                    </ul>
+                    <hr />
+                    <h3>4. Qalqalah</h3>
+                    <p>Qalqalah adalah memantulkan suara pada huruf-huruf (ق، ط، ب، ج، د) bila sukun.</p>
+                    <ul>
+                        <li><strong>Qalqalah Sughra</strong>: bila huruf qalqalah sukun di tengah kata.<br>
+                            <em>Contoh:</em> <span class="arab-text">يَقْطَعُونَ</span> (yaqtha‘uuna)</li>
+                        <li><strong>Qalqalah Kubra</strong>: bila huruf qalqalah sukun di akhir kata dan diwaqafkan.<br>
+                            <em>Contoh:</em> <span class="arab-text">أَحَدْ</span> (ahad)</li>
+                    </ul>
+                    <hr />
+                    <h3>5. Waqaf (Berhenti Membaca)</h3>
+                    <p>Waqaf adalah berhenti sejenak ketika membaca ayat. Ada beberapa macam waqaf:</p>
+                    <ul>
+                        <li><strong>Waqaf Taamm</strong>: berhenti di tempat yang sempurna maknanya, tidak terkait dengan sesudahnya.<br>
+                            <em>Contoh:</em> akhir ayat <span class="arab-text">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</span></li>
+                        <li><strong>Waqaf Kafi</strong>: berhenti di tempat cukup makna, tapi masih terkait dengan ayat setelahnya.<br>
+                            <em>Contoh:</em> pada ayat <span class="arab-text">ذَٰلِكَ الْكِتَابُ لَا رَيْبَ</span></li>
+                        <li><strong>Waqaf Hasan</strong>: berhenti di tempat yang baik dari sisi lafazh, tapi makna belum sempurna.<br>
+                            <em>Contoh:</em> berhenti di <span class="arab-text">الْحَمْدُ</span> dalam ayat pertama Al-Fatihah.</li>
+                        <li><strong>Waqaf Qabih</strong>: berhenti di tempat yang memutus makna sehingga menimbulkan arti salah (tidak boleh dilakukan).<br>
+                            <em>Contoh:</em> berhenti di <span class="arab-text">لَا</span> dalam ayat <span class="arab-text">لَا تَقْرَبُوا الصَّلَاةَ</span></li>
+                    </ul>
+                    <hr />
+                    <p><em>Kesimpulan:</em> Keenam kaidah tajwid ini adalah dasar utama yang wajib dipahami oleh setiap muslim agar bacaan Al-Qur’an menjadi fasih, indah, và sesuai dengan tuntunan Rasulullah ﷺ.</p>
+                </div>
+            `
+        }
+    };
+
+    // Data Mahfudzot (tetap sama)
+    const mahfudzotData = {
+        'mahfudzot-1': {
+            title: 'Niat yang Ikhlas',
+            arab: 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ',
+            latin: 'Innamal a\'mālu bin niyyāt',
+            meaning: 'Sesungguhnya amal perbuatan itu tergantung pada niatnya'
+        },
+        'mahfudzot-2': {
+            title: 'Sabar dan Syukur',
+            arab: 'وَاصْبِرْ وَمَا صَبْرُكَ إِلَّا بِاللَّهِ ۚ وَلَا تَحْزَنْ عَلَيْهِمْ وَلَا تَكُ فِي ضَيْقٍ مِمَّا يَمْكُرُونَ',
+            latin: 'Wasbir wa mā sabruka illā billāh, wa lā tahzan \'alaihim wa lā taku fī daīqim mimmā yamkurūn',
+            meaning: 'Bersabarlah dan tiada kesabaranmu itu melainkan dengan pertolongan Allah, dan janganlah kamu bersedih hati terhadap mereka dan janganlah kamu bersempit dada terhadap tipu daya yang mereka rencanakan'
+        },
+        'mahfudzot-3': {
+            title: 'Tawakal kepada Allah',
+            arab: 'وَمَنْ يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ',
+            latin: 'Wa may yatawakkal \'alallāhi fahuwa hasbuh',
+            meaning: 'Barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya'
+        },
+        'mahfudzot-4': {
+            title: 'Menuntut Ilmu',
+            arab: 'طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ',
+            latin: 'Tholabul \'ilmi farīdatun \'alā kulli muslim',
+            meaning: 'Menuntut ilmu wajib bagi setiap muslim'
+        },
+        'mahfudzot-5': {
+            title: 'Berbuat Baik kepada Orang Tua',
+            arab: 'وَوَصَّيْنَا الْإِنْسَانَ بِوَالِدَيْهِ إِحْسَانًا',
+            latin: 'Wa wassainal insāna bi wālidaihi ihsānā',
+            meaning: 'Dan Kami wasiatkan kepada manusia agar berbuat baik kepada kedua orang tuanya'
+        },
+        'mahfudzot-6': {
+            title: 'Menjaga Lisan',
+            arab: 'مَنْ يَضْمَنْ لِي مَا بَيْنَ لَحْيَيْهِ وَمَا بَيْنَ رِجْلَيْهِ أَضْمَنْ لَهُ الْجَنَّةَ',
+            latin: 'May yadman lī mā baina lahyaīhi wa mā baina rijlaini adhman lahul jannah',
+            meaning: 'Barangsiapa yang menjamin untukku apa yang ada di antara dua janggutnya (lisan) dan apa yang ada di antara dua kakinya (kemaluan), maka aku jamin baginya surga'
+        },
+        'mahfudzot-7': {
+            title: 'Keutamaan Silaturahmi',
+            arab: 'مَنْ أَحَبَّ أَنْ يُبْسَطَ لَهُ فِي رِزْقِهِ وَيُنْسَأَ لَهُ فِي أَثَرِهِ فَلْيَصِلْ رَحِمَهُ',
+            latin: 'Man ahabba an yubsatha lahu fī rizqihi wa yunsa-a lahu fī atharihi fal yasil rahimah',
+            meaning: 'Barangsiapa yang ingin dilapangkan rezekinya dan dipanjangkan umurnya, maka hendaklah ia menyambung tali silaturahmi'
+        },
+        'mahfudzot-8': {
+            title: 'Kejujuran',
+            arab: 'عَلَيْكُمْ بِالصِّدْقِ فَإِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ',
+            latin: "'Alaikum bish-shidqi fa innash-shidqa yahdī ilal birr",
+            meaning: 'Hendaklah kalian berlaku jujur, karena kejujuran menuntun kepada kebaikan'
+        },
+        'mahfudzot-9': {
+            title: 'Amal Shaleh',
+            arab: 'وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَىٰ',
+            latin: 'Wa al laisa lil insāni illā mā sa\'ā',
+            meaning: 'Dan bahwa seorang manusia tidak memperoleh selain apa yang telah diusahakannya'
+        },
+        'mahfudzot-10': {
+            title: 'Tolong Menolong',
+            arab: 'وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ',
+            latin: 'Wa ta\'āwanū \'alal birri wat-taqwā',
+            meaning: 'Dan tolong-menolonglah kamu dalam (mengerjakan) kebajikan dan takwa'
+        },
+        'mahfudzot-11': {
+            title: 'Rendah Hati',
+            arab: 'تَوَاضَعُوا وَلَا يَبْغِ بَعْضُكُمْ عَلَىٰ بَعْضٍ',
+            latin: 'Tawāda\'ū wa lā yabghi ba\'ḍukum \'alā ba\'ḍ',
+            meaning: 'Rendahkanlah dirimu dan janganlah saling membanggakan diri'
+        },
+        'mahfudzot-12': {
+            title: 'Malu Berbuat Dosa',
+            arab: 'الْحَيَاءُ لَا يَأْتِي إِلَّا بِخَيْرٍ',
+            latin: 'Al-hayāu lā ya\'tī illā bi khair',
+            meaning: 'Rasa malu tidak mendatangkan sesuatu kecuali kebaikan'
+        },
+        'mahfudzot-13': {
+            title: 'Menjaga Amanah',
+            arab: 'إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا',
+            latin: 'Innallāha ya\'murukum an tu-addul amānāti ilā ahlihā',
+            meaning: 'Sesungguhnya Allah menyuruh kamu menyampaikan amanat kepada yang berhak menerimanya'
+        },
+        'mahfudzot-14': {
+            title: 'Keutamaan Sedekah',
+            arab: 'مَنْ تَصَدَّقَ بِعَدْلِ تَمْرَةٍ مِنْ كَسْبٍ طَيِّبٍ وَلَا يَقْبَلُ اللَّهُ إِلَّا الطَّيِّبَ',
+            latin: 'Man tasaddaqa bi \'adli tamratin min kasbin thayyibin wa lā yaqbalullāhu illath-thayyib',
+            meaning: 'Barangsiapa yang bersedekah senilai sebutir kurma dari penghasilan yang halal, dan Allah tidak menerima kecuali yang halal'
+        },
+        
+        'mahfudzot-15': {
+            title: 'Berpikir Positif',
+            arab: 'احْفَظِ اللَّهَ يَحْفَظْكَ',
+            latin: 'Ihfazhillāh yahfazk',
+            meaning: 'Jagalah (hak dan perintah) Allah, niscaya Dia akan menjagamu'
+        },
+        'mahfudzot-16': {
+            title: 'Menjauhi Sifat Sombong',
+            arab: 'لَا يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ',
+            latin: 'Lā yadkhulul jannata man kāna fī qalbihi mithqālu dzarratin min kibr',
+            meaning: 'Tidak akan masuk surga orang yang di dalam hatinya terdapat kesombongan seberat zarrah'
+        },
+        'mahfudzot-17': {
+            title: 'Menghargai Waktu',
+            arab: 'نِعْمَتَانِ مَغْبُونٌ فِيهِمَا كَثِيرٌ مِنَ النَّاسِ الصِّحَّةُ وَالْفَرَاغُ',
+            latin: 'Ni\'matāni magbūnun fīhimā kathīrun minan nāsi ash-shihhatu wal farāgh',
+            meaning: 'Dua nikmat yang kebanyakan manusia tertipu (menyia-nyiakannya) yaitu kesehatan dan waktu luang'
+        },
+        'mahfudzot-18': {
+            title: 'Ketaatan kepada Allah',
+            arab: 'وَأَطِيعُوا اللَّهَ وَالرَّسُولَ لَعَلَّكُمْ تُرْحَمُونَ',
+            latin: 'Wa atī\'ullāha war-rasūla la\'allakum turhamūn',
+            meaning: 'Dan taatlah kepada Allah dan Rasul, supaya kamu diberi rahmat'
+        },
+        'mahfudzot-19': {
+            title: 'Kasih Sayang',
+            arab: 'الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَٰنُ',
+            latin: 'Ar-rāhimūna yarhamuhumur rahmān',
+            meaning: 'Orang-orang yang penyayang akan disayangi oleh Yang Maha Penyayang (Allah)'
+        },
+        'mahfudzot-20': {
+            title: 'Keutamaan Berdzikir',
+            arab: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+            latin: 'Alā bi dzikrillāhi tathma-innul qulūb',
+            meaning: 'Ingatlah, hanya dengan mengingat Allah hati menjadi tenteram'
+        }
+    };
+
+    // ============================
+    // PERBAIKAN UTAMA: HAPUS FUNGSI updateCountdown LAMA
+    // ============================
+
+    // Fungsi baru untuk menghitung perkiraan tanggal Hijriah
+    function getHijriDate(date) {
+        const hijriYear = date.getFullYear() - 622;
+        const hijriMonthNames = [
+            'Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir',
+            'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Sya\'ban',
+            'Ramadhan', 'Syawal', 'Dzulqaidah', 'Dzulhijjah'
+        ];
+
+        const totalDaysSinceEpoch = Math.floor((date - new Date('1970-01-01')) / (1000 * 60 * 60 * 24));
+        const hijriYearApprox = 1 + Math.floor(totalDaysSinceEpoch / 354.37);
+        const daysInThisHijriYear = totalDaysSinceEpoch % 354.37;
+        const hijriMonthApprox = Math.floor(daysInThisHijriYear / 29.5);
+
+        const hijriDay = Math.floor(daysInThisHijriYear % 29.5) + 1;
+        const hijriMonth = hijriMonthApprox >= 12 ? 0 : hijriMonthApprox;
+        const hijriYearFinal = hijriYearApprox + (hijriMonthApprox >= 12 ? 1 : 0);
+
+        return {
+            day: hijriDay,
+            month: hijriMonth,
+            monthName: hijriMonthNames[hijriMonth],
+            year: hijriYearFinal
+        };
+    }
+
+    // Fungsi untuk memperbarui waktu sholat dan countdown
+    function updatePrayerTime() {
+        try {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+
+            // Daftar waktu sholat (dalam format 24 jam)
+            const prayerTimes = [
+                { name: 'Subuh', hour: 4, minute: 30, id: 'fajr' },
+                { name: 'Dzuhur', hour: 11, minute: 45, id: 'dhuhr' },
+                { name: 'Ashar', hour: 15, minute: 0, id: 'asr' },
+                { name: 'Maghrib', hour: 17, minute: 55, id: 'maghrib' },
+                { name: 'Isya', hour: 18, minute: 59, id: 'isha' }
+            ];
+
+            // Cari waktu sholat berikutnya
+            let nextPrayer = null;
+            for (let i = 0; i < prayerTimes.length; i++) {
+                const prayer = prayerTimes[i];
+                if (currentHour < prayer.hour || (currentHour === prayer.hour && currentMinute < prayer.minute)) {
+                    nextPrayer = prayer;
+                    break;
+                }
+            }
+
+            // Jika tidak ada sholat lagi hari ini, ambil sholat pertama besok (Subuh)
+            if (!nextPrayer) {
+                nextPrayer = prayerTimes[0];
+            }
+
+            // Update tampilan nama sholat
+            const prayerNameEl = document.querySelector('.prayer-name');
+            if (prayerNameEl) {
+                prayerNameEl.textContent = `${nextPrayer.name} ${nextPrayer.hour.toString().padStart(2, '0')}:${nextPrayer.minute.toString().padStart(2, '0')} WIB`;
+            }
+
+            // Hitung selisih waktu
+            const targetTime = new Date();
+            targetTime.setHours(nextPrayer.hour, nextPrayer.minute, 0, 0);
+
+            // Jika waktu target sudah lewat, tambahkan 1 hari
+            if (now > targetTime) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+
+            const diff = targetTime - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Update tampilan countdown
+            if (countdownEl) {
+                countdownEl.textContent = `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+            }
+
+            // Periksa apakah waktu sholat telah tiba (dalam rentang 1 detik)
+            if (diff <= 1000 && diff >= 0) {
+                alert(`Waktu Sholat ${nextPrayer.name} telah tiba`);
+            }
+        } catch (error) {
+            console.error("Error in updatePrayerTime:", error);
+        }
+    }
+
+    // Fungsi untuk memperbarui tanggal Masehi dan Hijriah
+    function updateDate() {
+        try {
+            const now = new Date();
+            const dateEl = document.querySelector('.date');
+
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+            const hijri = getHijriDate(now);
+
+            const formattedDate = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} / ${hijri.day} ${hijri.monthName} ${hijri.year} H`;
+            if (dateEl) {
+                dateEl.textContent = formattedDate;
+            }
+        } catch (error) {
+            console.error("Error in updateDate:", error);
+        }
+    }
+
+    // ============================
+    // PERBAIKAN UTAMA: GANTI INISIALISASI
+    // ============================
+    // Initialize
+    setInterval(updatePrayerTime, 1000); // <-- Ganti dari updateCountdown ke updatePrayerTime
+    updatePrayerTime(); // Panggil segera
+
+    setInterval(updateDate, 60000); // Update tanggal setiap menit
+    updateDate(); // Panggil segera
+
+    // Navigation handling (tetap sama)
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const target = this.getAttribute('data-target');
+            // Update active nav item
+            navItems.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+            // Show corresponding content
+            contentSections.forEach(section => section.classList.remove('active'));
+            document.getElementById(`${target}-content`).classList.add('active');
+            // Show back button when not on home
+            if (target !== 'home') {
+                backBtn.style.display = 'block';
+                currentView = target;
+            } else {
+                backBtn.style.display = 'none';
+                currentView = 'home';
+            }
+            // Set currentView
+            if (target === 'home') {
+                currentView = 'home';
+            } else if (target === 'quran') {
+                currentView = 'surah-list';
+                loadSurahList();
+            } else if (target === 'doa-harian') {
+                currentView = 'doa-list';
+                // Reset doa detail view
+                doaDetailContainer.style.display = 'none';
+                document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'block');
+            } else if (target === 'mahfudzot') {
+                currentView = 'mahfudzot-list';
+                // Reset mahfudzot detail view
+                mahfudzotDetailContainer.style.display = 'none';
+                document.querySelectorAll('.mahfudzot-list').forEach(list => list.style.display = 'block');
+            } else if (target === 'doa-shalat') {
+                currentView = 'doa-shalat-list';
+                // Reset doa shalat detail view
+                doaShalatDetailContainer.style.display = 'none';
+                document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'block');
+            } else if (target === 'kitab') {
+                currentView = 'kitab-list';
+                // Reset kitab detail view
+                kitabDetailContainer.style.display = 'none';
+                document.querySelectorAll('.kitab-list').forEach(list => list.style.display = 'block');
+            } else if (target === 'kiblat') {
+                currentView = 'kiblat';
+                // Reset compass if active
+                if (compassActive) {
+                    stopCompass();
+                }
+            }            else if (target === 'daftar-surat') {
+                currentView = 'daftar-surat';
+                console.log("✅ Tombol 'Daftar Surat' diklik — memanggil loadFullSurahList()");
+                loadFullSurahList();
+            }
+        });
+    });
+
+    // View options for Quran (tetap sama)
+    viewOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            viewOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            const viewType = this.getAttribute('data-view');
+            if (viewType === 'surah') {
+                surahList.style.display = 'block';
+                pageView.style.display = 'none';
+            } else {
+                surahList.style.display = 'none';
+                pageView.style.display = 'block';
+                loadPage(currentPage);
+            }
+        });
+    });
+
+    // Page navigation (tetap sama)
+    prevPageBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            loadPage(currentPage);
+        }
+    });
+    nextPageBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadPage(currentPage);
+        }
+    });
+
+    // Doa items click handling (tetap sama)
+    doaItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const doaId = this.getAttribute('data-doa');
+            if (doaId) {
+                if (this.closest('#doa-harian-content')) {
+                    showDoaDetail(doaId);
+                } else if (this.closest('#doa-shalat-content')) {
+                    showDoaShalatDetail(doaId);
+                }
+            }
+        });
+    });
+
+    // Mahfudzot items click handling (tetap sama)
+    mahfudzotItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const mahfudzotId = this.getAttribute('data-mahfudzot');
+            if (mahfudzotId) {
+                showMahfudzotDetail(mahfudzotId);
+            }
+        });
+    });
+
+    // Kitab items click handling (tetap sama)
+    kitabItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const kitabId = this.getAttribute('data-kitab');
+            if (kitabId) {
+                showKitabDetail(kitabId);
+            }
+        });
+    });
+
+    // Back button handler (tetap sama)
+    backBtn.addEventListener('click', function() {
+        if (currentView === 'surah-detail') {
+            showSurahList();
+            currentView = 'surah-list';
+        } else if (currentView === 'doa-detail') {
+            doaDetailContainer.style.display = 'none';
+            document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'block');
+            currentView = 'doa-list';
+        } else if (currentView === 'mahfudzot-detail') {
+            mahfudzotDetailContainer.style.display = 'none';
+            document.querySelectorAll('.mahfudzot-list').forEach(list => list.style.display = 'block');
+            currentView = 'mahfudzot-list';
+        } else if (currentView === 'doa-shalat-detail') {
+            doaShalatDetailContainer.style.display = 'none';
+            document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'block');
+            currentView = 'doa-shalat-list';
+        } else if (currentView === 'kitab-detail') {
+            kitabDetailContainer.style.display = 'none';
+            document.querySelectorAll('.kitab-list').forEach(list => list.style.display = 'block');
+            currentView = 'kitab-list';
+        } else if (currentView === 'surah-list' || currentView === 'doa-list' || 
+                   currentView === 'mahfudzot-list' || currentView === 'doa-shalat-list' || 
+                   currentView === 'kitab-list') {
+            document.querySelector('[data-target="home"]').click();
+            currentView = 'home';
+        } else if (currentView === 'kiblat') {
+            document.querySelector('[data-target="home"]').click();
+            currentView = 'home';
+            if (compassActive) {
+                stopCompass();
+            }
+        
+                } else if (target === 'daftar-surat') {
+            currentView = 'daftar-surat';
+            console.log("🖱️ Tombol 'Daftar Surat' diklik, memanggil loadFullSurahList()...");
+            loadFullSurahList();
+        }
+    });
+
+   // Donate button handler - Updated to open WhatsApp
+donateBtn.addEventListener('click', function() {
+    // GANTI nomor di bawah ini dengan nomor WhatsApp Anda
+    const yourWhatsAppNumber = '6281214459411'; // Contoh: 6281234567890
+    const defaultMessage = 'Assalamualaikum, saya ingin menghubungi admin dari aplikasi Al-Quran Cahaya Iman.';
+    const encodedMessage = encodeURIComponent(defaultMessage);
+    const whatsappUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+});
+   // Simple Search - Cari Surat, Doa, atau Mahfudzot Langsung Buka
+searchInput.addEventListener('keypress', async function(e) {
+    if (e.key === 'Enter') {
+        const query = this.value.trim().toLowerCase();
+        if (query === '') {
+            this.value = '';
+            return;
+        }
+
+        let found = false;
+
+        // =============================
+        // 1. CARI DI DAFTAR SURAT
+        // =============================
+        if (!found) {
+            // Jika belum load daftar surat, load dulu
+            if (document.querySelectorAll('.surah-item').length === 0) {
+                await loadSurahList();
+            }
+
+            // Cari berdasarkan nomor surat
+            const surahNumber = parseInt(query);
+            if (!isNaN(surahNumber) && surahNumber >= 1 && surahNumber <= 114) {
+                document.querySelector('[data-target="quran"]').click();
+                setTimeout(() => {
+                    loadSurahDetail(surahNumber);
+                }, 300);
+                found = true;
+            } else {
+                // Cari berdasarkan nama (latin atau arti)
+                const surahElements = document.querySelectorAll('.surah-item');
+                for (let item of surahElements) {
+                    const textContent = item.textContent.toLowerCase();
+                    if (textContent.includes(query)) {
+                        const numberText = item.querySelector('.surah-name').textContent.split('.')[0].trim();
+                        const foundNumber = parseInt(numberText);
+                        if (!isNaN(foundNumber)) {
+                            document.querySelector('[data-target="quran"]').click();
+                            setTimeout(() => {
+                                loadSurahDetail(foundNumber);
+                            }, 300);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // =============================
+        // 2. CARI DI DOA HARIAN
+        // =============================
+        if (!found) {
+            for (let [key, doa] of Object.entries(doaData)) {
+                if (doa.title.toLowerCase().includes(query)) {
+                    document.querySelector('[data-target="doa-harian"]').click();
+                    setTimeout(() => {
+                        showDoaDetail(key);
+                    }, 300);
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        // =============================
+        // 3. CARI DI DOA SHALAT
+        // =============================
+        if (!found) {
+            for (let [key, doa] of Object.entries(doaShalatData)) {
+                if (doa.title.toLowerCase().includes(query)) {
+                    document.querySelector('[data-target="doa-shalat"]').click();
+                    setTimeout(() => {
+                        showDoaShalatDetail(key);
+                    }, 300);
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        // =============================
+        // 4. CARI DI MAHFUDZOT
+        // =============================
+        if (!found) {
+            for (let [key, mahfudzot] of Object.entries(mahfudzotData)) {
+                if (mahfudzot.title.toLowerCase().includes(query)) {
+                    document.querySelector('[data-target="mahfudzot"]').click();
+                    setTimeout(() => {
+                        showMahfudzotDetail(key);
+                    }, 300);
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        // Jika tidak ditemukan apa-apa
+        if (!found) {
+            alert(`"${this.value}" tidak ditemukan.`);
+        }
+
+        // Kosongkan input setelah pencarian
+        this.value = '';
+    }
+});
+
+    // Load surah list for Quran section (tetap sama)
+    async function loadSurahList() {
+        surahListContainer.style.display = 'block';
+        surahDetailContainer.style.display = 'none';
+        if (surahList.children.length > 0) {
+            return;
+        }
+        quranLoading.style.display = 'block';
+        surahList.innerHTML = '';
+        try {
+            const response = await fetch('https://api.alquran.cloud/v1/surah');
+            const data = await response.json();
+            if (data.code === 200) {
+                quranLoading.style.display = 'none';
+                data.data.forEach(surah => {
+                    const surahElement = document.createElement('div');
+                    surahElement.className = 'surah-item';
+                    surahElement.innerHTML = `
+                        <div>
+                            <div class="surah-name">${surah.number}. ${surah.englishName} (${surah.numberOfAyahs} ayat)</div>
+                            <div class="surah-name-arab">${surah.name}</div>
+                            <div class="surah-meaning">Arti: ${surahMeanings[surah.number] || 'Tidak diketahui'}</div>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    `;
+                    surahElement.addEventListener('click', () => {
+                        currentView = 'surah-detail';
+                        loadSurahDetail(surah.number);
+                    });
+                    surahList.appendChild(surahElement);
+                });
+            } else {
+                throw new Error('Gagal mengambil data surah');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            quranLoading.style.display = 'none';
+            surahList.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Gagal memuat data. Pastikan Anda terhubung ke internet.</p>
+                    <button class="nav-button retry-button">Coba Lagi</button>
+                </div>
+            `;
+            const retryButton = surahList.querySelector('.retry-button');
+            retryButton.addEventListener('click', loadSurahList);
+        }
+    }
+
+    // Load page content (placeholder - in real app would fetch from API) (tetap sama)
+    function loadPage(page) {
+        pageInfo.textContent = `Halaman ${page}`;
+        pageContent.innerHTML = `
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Memuat halaman ${page}...
+            </div>
+        `;
+        setTimeout(() => {
+            pageContent.innerHTML = `
+                <div class="ayat-container">
+                    <div class="ayat-item">
+                        <div class="ayat-arab">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                        <div class="ayat-latin">Bismillāhir-Raĥmānir-Raĥīm</div>
+                        <div class="ayat-terjemahan">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</div>
+                    </div>
+                    <div class="ayat-item">
+                        <div class="ayat-arab">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</div>
+                        <div class="ayat-latin">Al-ĥamdu lillāhi Rabbil-'ālamīn</div>
+                        <div class="ayat-terjemahan">Segala puji bagi Allah, Tuhan seluruh alam.</div>
+                    </div>
+                </div>
+                <div class="page-info">
+                    Halaman ${page} dari ${totalPages}
+                </div>
+            `;
+        }, 1000);
+    }
+
+    // Load detail surah beserta ayat-ayatnya (tetap sama)
+    async function loadSurahDetail(surahNumber) {
+        surahListContainer.style.display = 'none';
+        surahDetailContainer.style.display = 'block';
+        surahDetailContainer.innerHTML = `
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Memuat surah...
+            </div>
+        `;
+        try {
+            const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/editions/quran-uthmani,id.indonesian`);
+            const data = await response.json();
+            if (data.code === 200) {
+                const surah = data.data[0];
+                const translation = data.data[1];
+                let surahHTML = `
+                    <div class="surah-header">
+                        <div class="surah-title-arab">${surah.name}</div>
+                        <div class="surah-title-latin">${surah.englishName} (${surah.englishNameTranslation})</div>
+                        <div class="surah-meta">${surah.numberOfAyahs} ayat • ${surah.revelationType === 'Meccan' ? 'Makkiyah' : 'Madaniyah'} • Arti: ${surahMeanings[surahNumber] || 'Tidak diketahui'}</div>
+                    </div>
+                    <div class="view-options">
+                        <div class="view-option active" data-view="ayat">Per Ayat</div>
+                        <div class="view-option" data-view="halaman">Per Halaman</div>
+                    </div>
+                    <div class="ayat-container">
+                `;
+                for (let i = 0; i < surah.ayahs.length; i++) {
+                    surahHTML += `
+                        <div class="ayat-item">
+                            <div class="ayat-arab">${surah.ayahs[i].text} <span style="color: #10B981; font-family: sans-serif;">(${surah.ayahs[i].numberInSurah})</span></div>
+                            <div class="ayat-latin">${translation.ayahs[i].text}</div>
+                            <div class="ayat-terjemahan">Terjemahan: ${translation.ayahs[i].text}</div>
+                        </div>
+                    `;
+                }
+                surahHTML += `
+                    </div>
+                    <div class="navigation-buttons">
+                        <button class="nav-button prev-surah" data-prev="${surahNumber > 1 ? surahNumber - 1 : 114}">
+                            <i class="fas fa-arrow-left"></i> Surah Sebelumnya
+                        </button>
+                        <button class="nav-button back-to-list">
+                            <i class="fas fa-list"></i> Daftar Surah
+                        </button>
+                        <button class="nav-button next-surah" data-next="${surahNumber < 114 ? surahNumber + 1 : 1}">
+                            Surah Selanjutnya <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                `;
+                surahDetailContainer.innerHTML = surahHTML;
+                const prevButton = surahDetailContainer.querySelector('.prev-surah');
+                const nextButton = surahDetailContainer.querySelector('.next-surah');
+                const backToListButton = surahDetailContainer.querySelector('.back-to-list');
+                prevButton.addEventListener('click', function() {
+                    const prevNum = parseInt(this.getAttribute('data-prev'));
+                    loadSurahDetail(prevNum);
+                });
+                nextButton.addEventListener('click', function() {
+                    const nextNum = parseInt(this.getAttribute('data-next'));
+                    loadSurahDetail(nextNum);
+                });
+                backToListButton.addEventListener('click', showSurahList);
+                const detailViewOptions = surahDetailContainer.querySelectorAll('.view-option');
+                detailViewOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        detailViewOptions.forEach(opt => opt.classList.remove('active'));
+                        this.classList.add('active');
+                        alert('Fitur tampilan per halaman akan segera hadir');
+                    });
+                });
+            } else {
+                throw new Error('Gagal mengambil detail surah');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            surahDetailContainer.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Gagal memuat detail surah. Pastikan Anda terhubung ke internet.</p>
+                    <button class="nav-button retry-button">Coba Lagi</button>
+                    <button class="nav-button back-button">Kembali ke Daftar Surah</button>
+                </div>
+            `;
+            const retryButton = surahDetailContainer.querySelector('.retry-button');
+            const backButton = surahDetailContainer.querySelector('.back-button');
+            retryButton.addEventListener('click', () => loadSurahDetail(surahNumber));
+            backButton.addEventListener('click', showSurahList);
+        }
+    }
+
+    // Show doa detail (tetap sama)
+    function showDoaDetail(doaId) {
+        const doa = doaData[doaId];
+        if (!doa) return;
+        currentView = 'doa-detail';
+        document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'none');
+        doaDetailContainer.style.display = 'block';
+        doaDetailContainer.innerHTML = `
+           <div class="surah-header">
+                <div class="surah-title-latin">${doa.title}</div>
+            </div>
+            <div class="doa-detail">
+                <div class="doa-arab">${doa.arab}</div>
+                <div class="doa-latin">${doa.latin}</div>
+                <div class="doa-terjemahan">${doa.translation}</div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button back-button">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+        `;
+        const backButton = doaDetailContainer.querySelector('.back-button');
+        backButton.addEventListener('click', () => {
+            doaDetailContainer.style.display = 'none';
+            document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'block');
+            currentView = 'doa-list';
+        });
+    }
+
+    // Show mahfudzot detail (tetap sama)
+    function showMahfudzotDetail(mahfudzotId) {
+        const mahfudzot = mahfudzotData[mahfudzotId];
+        if (!mahfudzot) return;
+        currentView = 'mahfudzot-detail';
+        document.querySelectorAll('.mahfudzot-list').forEach(list => list.style.display = 'none');
+        mahfudzotDetailContainer.style.display = 'block';
+        mahfudzotDetailContainer.innerHTML = `
+            <div class="surah-header">
+                <div class="surah-title-latin">${mahfudzot.title}</div>
+            </div>
+            <div class="mahfudzot-detail">
+                <div class="mahfudzot-arab">${mahfudzot.arab}</div>
+                <div class="mahfudzot-latin">${mahfudzot.latin}</div>
+                <div class="mahfudzot-meaning">${mahfudzot.meaning}</div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button back-button">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+        `;
+        const backButton = mahfudzotDetailContainer.querySelector('.back-button');
+        backButton.addEventListener('click', () => {
+            mahfudzotDetailContainer.style.display = 'none';
+            document.querySelectorAll('.mahfudzot-list').forEach(list => list.style.display = 'block');
+            currentView = 'mahfudzot-list';
+        });
+    }
+
+    // Show doa shalat detail (tetap sama)
+    function showDoaShalatDetail(doaId) {
+        const doa = doaShalatData[doaId];
+        if (!doa) return;
+        currentView = 'doa-shalat-detail';
+        document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'none');
+        doaShalatDetailContainer.style.display = 'block';
+        doaShalatDetailContainer.innerHTML = `
+            <div class="surah-header">
+                <div class="surah-title-latin">${doa.title}</div>
+                ${doa.subTitle ? `<div class="surah-meta">${doa.subTitle}</div>` : ''}
+            </div>
+            <div class="doa-detail">
+                <div class="doa-arab">${doa.arab}</div>
+                <div class="doa-latin">${doa.latin}</div>
+                <div class="doa-terjemahan">${doa.translation}</div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button back-button">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+        `;
+        const backButton = doaShalatDetailContainer.querySelector('.back-button');
+        backButton.addEventListener('click', () => {
+            doaShalatDetailContainer.style.display = 'none';
+            document.querySelectorAll('.doa-list').forEach(list => list.style.display = 'block');
+            currentView = 'doa-shalat-list';
+        });
+    }
+
+    // Show kitab detail (tetap sama)
+    function showKitabDetail(kitabId) {
+        const kitab = kitabData[kitabId];
+        if (!kitab) return;
+        currentView = 'kitab-detail';
+        document.querySelectorAll('.kitab-list').forEach(list => list.style.display = 'none');
+        kitabDetailContainer.style.display = 'block';
+        kitabDetailContainer.innerHTML = kitab.content + `
+            <div class="navigation-buttons">
+                <button class="nav-button back-button">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+        `;
+        const backButton = kitabDetailContainer.querySelector('.back-button');
+        backButton.addEventListener('click', () => {
+            kitabDetailContainer.style.display = 'none';
+            document.querySelectorAll('.kitab-list').forEach(list => list.style.display = 'block');
+            currentView = 'kitab-list';
+        });
+    }
+
+    // Fungsi untuk kembali ke daftar surah (tetap sama)
+    function showSurahList() {
+        currentView = 'surah-list';
+        surahListContainer.style.display = 'block';
+        surahDetailContainer.style.display = 'none';
+    }
+
+    // Fungsi untuk kompas arah kiblat (tetap sama)
+    function startCompass() {
+        if (!window.DeviceOrientationEvent) {
+            compassStatus.textContent = 'Browser Anda tidak mendukung fitur kompas';
+            return;
+        }
+        compassStatus.textContent = 'Mencari arah kiblat...';
+        compassActive = true;
+        const qiblaDirection = 295;
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        window.addEventListener('deviceorientation', handleOrientation);
+                    } else {
+                        compassStatus.textContent = 'Izin akses sensor ditolak';
+                        compassActive = false;
+                    }
+                })
+                .catch(console.error);
+        } else {
+            window.addEventListener('deviceorientation', handleOrientation);
+        }
+        function handleOrientation(event) {
+            const alpha = event.alpha;
+            if (alpha === null) {
+                compassStatus.textContent = 'Sensor kompas tidak tersedia';
+                return;
+            }
+            let heading = alpha;
+            let arrowRotation = qiblaDirection - heading;
+            if (arrowRotation < 0) {
+                arrowRotation += 360;
+            }
+            compassArrow.style.transform = `translateX(-50%) translateY(-100%) rotate(${arrowRotation}deg)`;
+            const directions = ['Utara', 'Timur Laut', 'Timur', 'Tenggara', 'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'];
+            const directionIndex = Math.round(heading / 45) % 8;
+            kiblatDirection.textContent = directions[directionIndex];
+            compassStatus.textContent = `Arah Device: ${Math.round(heading)}° | Arah Kiblat: ${qiblaDirection}°`;
+        }
+    }
+
+    function stopCompass() {
+        window.removeEventListener('deviceorientation', handleOrientation);
+        compassActive = false;
+        compassStatus.textContent = 'Kompas nonaktif';
+    }
+
+    // Event listeners untuk tombol kompas (tetap sama)
+    activateCompassBtn.addEventListener('click', function() {
+        if (!compassActive) {
+            startCompass();
+            this.innerHTML = '<i class="fas fa-stop"></i> Nonaktifkan Kompas';
+        } else {
+            stopCompass();
+            this.innerHTML = '<i class="fas fa-compass"></i> Aktifkan Kompas';
+        }
+    });
+
+    resetCompassBtn.addEventListener('click', function() {
+        stopCompass();
+        compassArrow.style.transform = 'translateX(-50%) translateY(-100%) rotate(0deg)';
+        kiblatDirection.textContent = 'Barat Laut';
+        compassStatus.textContent = 'Kompas direset';
+        activateCompassBtn.innerHTML = '<i class="fas fa-compass"></i> Aktifkan Kompas';
+        compassActive = false;
+    });
+    // Fungsi untuk memuat daftar lengkap 114 surat
+function loadFullSurahList() {
+    fullSurahLoading.style.display = 'block';
+    fullSurahList.innerHTML = ''; // Kosongkan dulu
+
+    // Tunggu sebentar untuk efek loading, lalu isi data
+    setTimeout(() => {
+        fullSurahLoading.style.display = 'none';
+        let html = '';
+        for (let i = 1; i <= 114; i++) {
+            html += `
+                <div class="surah-item">
+                    <div>
+                        <div class="surah-name">${i}. Al-${i === 1 ? 'Fatihah' : getSurahName(i)}</div>
+                        <div class="surah-meaning">Arti: ${surahMeanings[i] || 'Tidak diketahui'}</div>
+                    </div>
+                </div>
+            `;
+        }
+        fullSurahList.innerHTML = html;
+    }, 500);
+}
+
+// Fungsi helper sederhana untuk mendapatkan nama surah dalam bahasa Inggris
+function getSurahName(number) {
+    const names = [
+        "Fatihah", "Baqarah", "Ali 'Imran", "An-Nisa", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus",
+        "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra", "Al-Kahf", "Maryam", "Taha",
+        "Al-Anbiya", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum",
+        "Luqman", "As-Sajdah", "Al-Ahzab", "Saba", "Fatir", "Ya-Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir",
+        "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiya", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf",
+        "Adh-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadila", "Al-Hashr", "Al-Mumtahanah",
+        "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij",
+        "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba", "An-Nazi'at", "'Abasa",
+        "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad",
+        "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat",
+        "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr",
+        "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
+    ];
+    return names[number - 1] || "Unknown";
+}
+</script>
+</body>
+</html>
